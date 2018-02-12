@@ -21,7 +21,7 @@
    actual cost based on the Items being purchased and any
    applicable Discounts.
 
-** order
+** full order
    - id
    - total cost
    - created timestamp
@@ -46,6 +46,10 @@
    - percent (e.g. null)
    - amount (e.g. null)
    - item_count (e.g. 5)
+
+*** Notes
+    - for x% off entire order if customer spends more than
+      $y, both =percent= and =amount= can be specified
 
 ** discount type
    - id
