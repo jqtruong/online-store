@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1-beta" last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<role name="nymo"
+      superuser="true"
+      createdb="true"
+      createrole="true"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="umn_discount_shopping" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<sequence name="hibernate_sequence"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="customer">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="100" y="682"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="first_name" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="middle_name">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="password" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="last_name" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="customer_pkey" type="pk-constr" table="public.customer">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="discount">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="204"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="item_count">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="type_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="percent">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="amount">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="description">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="discount_pkey" type="pk-constr" table="public.discount">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="discount_type">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="680" y="342"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="scope" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="description">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="discount_type_pkey" type="pk-constr" table="public.discount_type">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="item">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="680" y="522"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="cost" not-null="true">
+		<type name="real" length="0"/>
+	</column>
+	<column name="description">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="sku" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="item_pkey" type="pk-constr" table="public.item">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="order_discount">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="202"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="item_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="value" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="discount_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="order_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="order_discount_pkey" type="pk-constr" table="public.order_discount">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="order_history">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="680" y="702"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="customer_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="order_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="order_history_pkey" type="pk-constr" table="public.order_history">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="order_item_list">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="100" y="444"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="item_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="quantity" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="calculated_cost" not-null="true">
+		<type name="real" length="0"/>
+	</column>
+	<column name="order_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="order_item_list_pkey" type="pk-constr" table="public.order_item_list">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fkriwnatjeqtevfv6v3dw0mflwo" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.discount_type" table="public.discount">
+	<columns names="type_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkleywhsomhil7npgskf7j7sfoj" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.item" table="public.order_discount">
+	<columns names="item_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkc8k78pwub3wbsnsgb0ccqdrw8" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.discount" table="public.order_discount">
+	<columns names="discount_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkj7nwdjdh5ipolmlcaso4oygd4" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.customer" table="public.order_history">
+	<columns names="customer_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk88pw9129yxjeq0j4pc9inl2ju" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.item" table="public.order_item_list">
+	<columns names="item_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_discount_discount_type" type="relfk"
+	 custom-color="#eb54a2"
+	 src-table="public.discount"
+	 dst-table="public.discount_type"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_order_discount_item" type="relfk"
+	 custom-color="#caa5bc"
+	 src-table="public.order_discount"
+	 dst-table="public.item"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_order_discount_discount" type="relfk"
+	 custom-color="#1b7544"
+	 src-table="public.order_discount"
+	 dst-table="public.discount"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_order_history_customer" type="relfk"
+	 custom-color="#4a2385"
+	 src-table="public.order_history"
+	 dst-table="public.customer"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_order_item_list_item" type="relfk"
+	 custom-color="#a20dd8"
+	 src-table="public.order_item_list"
+	 dst-table="public.item"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

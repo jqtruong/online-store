@@ -1,0 +1,58 @@
+#+STARTUP: hidestars
+
+* Discounts
+  - Buy x items, get one free
+  - x% off the item's price
+  - $x off the item's price
+  - % off the entire order when item is purchased
+  - % off the entire order when customer spends greater than $y
+
+* Schema
+
+** [2018-02-11 Sun]
+   discounts are applied on items during checkout, or
+   completing the order. 
+   
+   if x-quantity in bxgo includes previous orders, read
+   customer's history and add one to the order if qualified,
+   else check order for quantity.
+   
+   In a web application, a Order class will calculate the
+   actual cost based on the Items being purchased and any
+   applicable Discounts.
+
+** order
+   - id
+   - total cost
+   - created timestamp
+
+** order item list
+   - order id
+   - item id
+   - quantity
+   - cost: item's price with discount, if any
+
+** order discount
+   - order id
+   - discount id
+   - item id (could be null if applied on entire order)
+   - value (% off, $ off, or how many to get one free)
+
+** discount
+   - id
+   - type id
+   - name (e.g. b5go)
+   - description (e.g. buy 5 get one free)
+   - percent (e.g. null)
+   - amount (e.g. null)
+   - item_count (e.g. 5)
+
+** discount type
+   - id
+   - name (e.g. bxbo)
+   - description (e.g. buy X items and get one free)
+   - scope ('order' or 'item')
+
+** orders history
+   - customer id
+   - order id
