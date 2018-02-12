@@ -1,7 +1,7 @@
 package com.umn
 
 class OrderDiscount {
-    Order order
+    FullOrder order
     Discount discount
     Item item                   // null if discount applied on order
     Integer value               // % or $ off, or x in BxGO

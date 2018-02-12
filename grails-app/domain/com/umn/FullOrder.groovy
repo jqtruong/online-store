@@ -1,6 +1,6 @@
 package com.umn
 
-class Order {
+class FullOrder {
     Float totalCost
     Date created = new Date()
 

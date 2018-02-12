@@ -2,7 +2,7 @@ package com.umn
 
 class OrderHistory {
     Customer customer
-    Order order
+    FullOrder order
 
     static constraints = {
     }

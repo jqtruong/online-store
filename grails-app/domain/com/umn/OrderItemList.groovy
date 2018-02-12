@@ -1,7 +1,7 @@
 package com.umn
 
 class OrderItemList {
-    Order order
+    FullOrder order
     Item item
     Integer quantity
     Float calculatedCost

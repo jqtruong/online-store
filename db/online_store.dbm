@@ -34,7 +34,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="customer">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="100" y="682"/>
+	<position x="660" y="42"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -64,7 +64,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="discount">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="80" y="204"/>
+	<position x="1740" y="440"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -97,7 +97,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="discount_type">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="680" y="342"/>
+	<position x="2260" y="500"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -118,10 +118,31 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
+<table name="full_order">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="660" y="302"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="created" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="total_cost" not-null="true">
+		<type name="real" length="0"/>
+	</column>
+	<constraint name="full_order_pkey" type="pk-constr" table="public.full_order">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
 <table name="item">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="680" y="522"/>
+	<position x="660" y="602"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -148,7 +169,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="order_discount">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="202"/>
+	<position x="1160" y="360"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -175,7 +196,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="order_history">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="680" y="702"/>
+	<position x="40" y="304"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -196,7 +217,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="order_item_list">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="100" y="444"/>
+	<position x="40" y="542"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -238,9 +259,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="fktrfktj08u9mk0629lr6sbqc7i" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.full_order" table="public.order_discount">
+	<columns names="order_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
 <constraint name="fkj7nwdjdh5ipolmlcaso4oygd4" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.customer" table="public.order_history">
 	<columns names="customer_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk2f087bc9ka7evdq9isunm5sd6" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.full_order" table="public.order_history">
+	<columns names="order_id" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -250,34 +283,58 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="fkalroy739trhurr1c1kmd4n573" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.full_order" table="public.order_item_list">
+	<columns names="order_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
 <relationship name="rel_discount_discount_type" type="relfk"
-	 custom-color="#eb54a2"
+	 custom-color="#94cc9c"
 	 src-table="public.discount"
 	 dst-table="public.discount_type"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_order_discount_item" type="relfk"
-	 custom-color="#caa5bc"
+	 custom-color="#a3c5a9"
 	 src-table="public.order_discount"
 	 dst-table="public.item"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_order_discount_discount" type="relfk"
-	 custom-color="#1b7544"
+	 custom-color="#dc53da"
 	 src-table="public.order_discount"
 	 dst-table="public.discount"
 	 src-required="false" dst-required="false"/>
 
+<relationship name="rel_order_discount_full_order" type="relfk"
+	 custom-color="#111752"
+	 src-table="public.order_discount"
+	 dst-table="public.full_order"
+	 src-required="false" dst-required="false"/>
+
 <relationship name="rel_order_history_customer" type="relfk"
-	 custom-color="#4a2385"
+	 custom-color="#7ebfdb"
 	 src-table="public.order_history"
 	 dst-table="public.customer"
 	 src-required="false" dst-required="false"/>
 
+<relationship name="rel_order_history_full_order" type="relfk"
+	 custom-color="#715d1c"
+	 src-table="public.order_history"
+	 dst-table="public.full_order"
+	 src-required="false" dst-required="false"/>
+
 <relationship name="rel_order_item_list_item" type="relfk"
-	 custom-color="#a20dd8"
+	 custom-color="#4bfeb1"
 	 src-table="public.order_item_list"
 	 dst-table="public.item"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_order_item_list_full_order" type="relfk"
+	 custom-color="#6959d2"
+	 src-table="public.order_item_list"
+	 dst-table="public.full_order"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

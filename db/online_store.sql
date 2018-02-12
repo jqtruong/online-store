@@ -94,6 +94,20 @@ CREATE TABLE public.discount_type(
 ALTER TABLE public.discount_type OWNER TO postgres;
 -- ddl-end --
 
+-- object: public.full_order | type: TABLE --
+-- DROP TABLE IF EXISTS public.full_order CASCADE;
+CREATE TABLE public.full_order(
+	id bigint NOT NULL,
+	version bigint NOT NULL,
+	created timestamp NOT NULL,
+	total_cost real NOT NULL,
+	CONSTRAINT full_order_pkey PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.full_order OWNER TO postgres;
+-- ddl-end --
+
 -- object: public.item | type: TABLE --
 -- DROP TABLE IF EXISTS public.item CASCADE;
 CREATE TABLE public.item(
@@ -177,6 +191,13 @@ REFERENCES public.discount (id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+-- object: fktrfktj08u9mk0629lr6sbqc7i | type: CONSTRAINT --
+-- ALTER TABLE public.order_discount DROP CONSTRAINT IF EXISTS fktrfktj08u9mk0629lr6sbqc7i CASCADE;
+ALTER TABLE public.order_discount ADD CONSTRAINT fktrfktj08u9mk0629lr6sbqc7i FOREIGN KEY (order_id)
+REFERENCES public.full_order (id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
 -- object: fkj7nwdjdh5ipolmlcaso4oygd4 | type: CONSTRAINT --
 -- ALTER TABLE public.order_history DROP CONSTRAINT IF EXISTS fkj7nwdjdh5ipolmlcaso4oygd4 CASCADE;
 ALTER TABLE public.order_history ADD CONSTRAINT fkj7nwdjdh5ipolmlcaso4oygd4 FOREIGN KEY (customer_id)
@@ -184,10 +205,24 @@ REFERENCES public.customer (id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+-- object: fk2f087bc9ka7evdq9isunm5sd6 | type: CONSTRAINT --
+-- ALTER TABLE public.order_history DROP CONSTRAINT IF EXISTS fk2f087bc9ka7evdq9isunm5sd6 CASCADE;
+ALTER TABLE public.order_history ADD CONSTRAINT fk2f087bc9ka7evdq9isunm5sd6 FOREIGN KEY (order_id)
+REFERENCES public.full_order (id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
 -- object: fk88pw9129yxjeq0j4pc9inl2ju | type: CONSTRAINT --
 -- ALTER TABLE public.order_item_list DROP CONSTRAINT IF EXISTS fk88pw9129yxjeq0j4pc9inl2ju CASCADE;
 ALTER TABLE public.order_item_list ADD CONSTRAINT fk88pw9129yxjeq0j4pc9inl2ju FOREIGN KEY (item_id)
 REFERENCES public.item (id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: fkalroy739trhurr1c1kmd4n573 | type: CONSTRAINT --
+-- ALTER TABLE public.order_item_list DROP CONSTRAINT IF EXISTS fkalroy739trhurr1c1kmd4n573 CASCADE;
+ALTER TABLE public.order_item_list ADD CONSTRAINT fkalroy739trhurr1c1kmd4n573 FOREIGN KEY (order_id)
+REFERENCES public.full_order (id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
